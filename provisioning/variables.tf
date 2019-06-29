@@ -95,7 +95,7 @@ variable "kubernetes_dashboard" {
 
 variable "network_policy" {
   description = "Enable network policy addon"
-  default     = true
+  default     = false
 }
 
 variable "maintenance_start_time" {
