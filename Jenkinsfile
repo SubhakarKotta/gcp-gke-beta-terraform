@@ -94,7 +94,7 @@ spec:
         stage('init') {
             steps {
                container('jenkins-slave-terraform-kubectl-helm-gcloud'){ 
-                   withCredentials([[$class: 'FileBinding', credentialsId: params.gke, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
+                   withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
                        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
                             dir ("provisioning") { 
                                 sh 'terraform init  -backend-config="prefix=${cluster}/terraform.tfstate"'
