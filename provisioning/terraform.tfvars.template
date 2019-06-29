@@ -1,0 +1,58 @@
+##########################################################################################
+# GCP Vars
+project_id             		   = "mystical-being-195215"
+region                  	   = "us-central1"
+
+##########################################################################################
+# GCP VPC Vars
+network          	          = "subhakar-demo-cloud-vpc-1"
+subnets 			  = [
+				        {
+				            subnet_name           = "subhakar-demo-cloud-subnet-1"
+				            subnet_ip             = "10.10.10.0/24"
+				            subnet_region         = "us-central1"
+				        }
+				    ]
+secondary_ranges 		  = { 
+					    subhakar-demo-cloud-subnet-1 = []
+			            }
+
+##########################################################################################
+# GKE Vars
+zones		               	  = ["us-central1-a", "us-central1-b", "us-central1-c"]
+ip_range_pods              	  = ""
+ip_range_services          	  = ""
+http_load_balancing        	  = false
+horizontal_pod_autoscaling 	  = true
+kubernetes_dashboard       	  = true
+network_policy             	  = true
+remove_default_node_pool          = true
+node_pools = [
+    {
+      name           	          = "default-node-pool"
+      machine_type       	  = "n1-standard-4"
+      min_count          	  = 3
+      max_count          	  = 3
+      disk_size_gb       	  = 100
+      disk_type          	  = "pd-standard"
+      image_type         	  = "COS"
+      auto_repair        	  = true
+      auto_upgrade       	  = true
+      service_account    	  = ""
+      preemptible        	  = false
+      initial_node_count 	  = 1
+    }
+  ]
+##########################################################################################
+# CLOUDSQL Vars
+database_name_prefix              = "subhakar-demo-cloud"
+database_version                  = "POSTGRES_9_6"
+sql_instance_size                 = "db-custom-8-16384"
+sql_disk_type                     = "PD_SSD"
+sql_disk_size                     = "30"
+sql_require_ssl                   = "false"
+sql_master_zone                   = "a"
+sql_user                          = "postgres"
+sql_pass                          = "postgres"
+availability_type                 = "ZONAL"
+##########################################################################################
