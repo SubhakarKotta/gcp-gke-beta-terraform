@@ -131,7 +131,7 @@ spec:
                          withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
                              wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
                                  dir ("provisioning") { 
-                                     sh 'terraform validate -var  name=${cluster} --var-file=${TFVARS_FILE_NAME}'
+                                     sh 'terraform validate -var docker_username=$USERNAME -var docker_password=$PASSWORD -var  name=${cluster} --var-file=${TFVARS_FILE_NAME}'
                                  }
                              }
                          }
