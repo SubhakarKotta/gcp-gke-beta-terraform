@@ -1,4 +1,4 @@
-module "gke" {
+module "cluster" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   project_id                 = "${var.project_id}"
   name                       = "${var.name}"

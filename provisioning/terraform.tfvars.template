@@ -1,31 +1,16 @@
-##########################################################################################
-# GCP Vars
-project_id             		   = "mystical-being-195215"
-region                  	   = "us-central1"
-
-##########################################################################################
-# GCP VPC Vars
-network          	          = "subhakar-demo-cloud-vpc-1"
-subnets 			  = [
-				        {
-				            subnet_name           = "subhakar-demo-cloud-subnet-1"
-				            subnet_ip             = "10.10.10.0/24"
-				            subnet_region         = "us-central1"
-				        }
-				    ]
-secondary_ranges 		  = { 
-					    subhakar-demo-cloud-subnet-1 = []
-			            }
-
-##########################################################################################
-# GKE Vars
-zones		               	  = ["us-central1-a", "us-central1-b", "us-central1-c"]
-ip_range_pods              	  = ""
-ip_range_services          	  = ""
-http_load_balancing        	  = false
-horizontal_pod_autoscaling 	  = true
-kubernetes_dashboard       	  = true
-network_policy             	  = true
+############################################ S T A R T- I N P U T - P A R A M E T E R S ################################################
+#------------------------------------------------------------------------------
+# cluster parameters. The VPC  and CloudSQL will be created with the cluster name
+#------------------------------------------------------------------------------
+project_id                        = "mystical-being-195215"
+region                            = "us-central1"
+zones                             = ["us-central1-a", "us-central1-b", "us-central1-c"]
+ip_range_pods                     = ""
+ip_range_services                 = ""
+http_load_balancing               = false
+horizontal_pod_autoscaling        = true
+kubernetes_dashboard              = true
+network_policy                    = false
 remove_default_node_pool          = true
 node_pools = [
     {
@@ -43,9 +28,9 @@ node_pools = [
       initial_node_count 	  = 1
     }
   ]
-##########################################################################################
-# CLOUDSQL Vars
-database_name_prefix              = "subhakar-demo-cloud"
+#------------------------
+# database parameters
+#------------------------
 database_version                  = "POSTGRES_9_6"
 sql_instance_size                 = "db-custom-8-16384"
 sql_disk_type                     = "PD_SSD"
@@ -55,4 +40,15 @@ sql_master_zone                   = "a"
 sql_user                          = "postgres"
 sql_pass                          = "postgres"
 availability_type                 = "ZONAL"
-##########################################################################################
+
+#--------------------
+# pega parameters
+#--------------------
+elb_zone_id                     = "Z1H1FL5HABSF5"
+route53_zone                    = "dev.pega.io"
+namespace                       = "pega"
+release_name                    = "pega"
+chart_name                      = "pega"
+chart_version                   = "8.3.0-9"
+pega_repo_url                   = "https://scrumteamwhitewalkers.github.io/pega-helm-charts/"
+########################################### E N D - I N P U T - P A R A M E T E R S ####################################################

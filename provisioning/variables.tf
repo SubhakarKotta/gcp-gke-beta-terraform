@@ -1,7 +1,7 @@
 ###################CLUSTER VARIABLES##################
 variable "project_id" {
   description = "The project ID to host the cluster in (required)"
-  default = "mystical-being-195215"
+  default     = "mystical-being-195215"
 }
 
 variable "name" {
@@ -20,7 +20,7 @@ variable "regional" {
 
 variable "region" {
   description = "The region to host the cluster in (required)"
-  default = "us-central1"
+  default     = "us-central1"
 }
 
 variable "zones" {
@@ -29,19 +29,10 @@ variable "zones" {
   default     = ["us-central1-a", "us-central1-b", "us-central1-c"]
 }
 
-/*variable "network" {
-  description = "The VPC network to host the cluster in (required)"
-}
-
-variable "subnets" {
-  type        = "list"
-  description = "The list of subnets being created"
-}*/
-
 variable "secondary_ranges" {
   type        = "map"
   description = "Secondary ranges that will be used in some of the subnets"
-  default = {}
+  default     = {}
 }
 
 variable "network_project_id" {
@@ -105,12 +96,12 @@ variable "maintenance_start_time" {
 
 variable "ip_range_pods" {
   description = "The _name_ of the secondary subnet ip range to use for pods"
-  default = ""
+  default     = ""
 }
 
 variable "ip_range_services" {
   description = "The _name_ of the secondary subnet range to use for services"
-  default = ""
+  default     = ""
 }
 
 variable "remove_default_node_pool" {
@@ -129,7 +120,18 @@ variable "node_pools" {
 
   default = [
     {
-      name = "default-node-pool"
+      name               = "default-node-pool"
+      machine_type       = "n1-standard-4"
+      min_count          = 3
+      max_count          = 3
+      disk_size_gb       = 100
+      disk_type          = "pd-standard"
+      image_type         = "COS"
+      auto_repair        = true
+      auto_upgrade       = true
+      service_account    = ""
+      preemptible        = false
+      initial_node_count = 1
     },
   ]
 }
@@ -239,47 +241,47 @@ variable "issue_client_certificate" {
 ###################CLOUDSQL VARIABLES##################
 variable "database_version" {
   description = "Database version"
-  default = "POSTGRES_9_6"
+  default     = "POSTGRES_9_6"
 }
 
 variable "availability_type" {
   description = "Availability type for HA"
-  default= "ZONAL"
+  default     = "ZONAL"
 }
 
 variable "sql_instance_size" {
   description = "Size of Cloud SQL instances"
-  default="db-custom-8-16384"
+  default     = "db-custom-8-16384"
 }
 
 variable "sql_disk_type" {
   description = "Cloud SQL instance disk type"
-  default="PD_SSD"
+  default     = "PD_SSD"
 }
 
 variable "sql_disk_size" {
   description = "Storage size in GB"
-  default = "30"
+  default     = "30"
 }
 
 variable "sql_require_ssl" {
   description = "Enforce SSL connections"
-  default=false
+  default     = false
 }
 
 variable "sql_master_zone" {
   description = "Zone of the Cloud SQL master (a, b, ...)"
-  default ="a"
+  default     = "a"
 }
 
 variable "sql_user" {
   description = "Username of the host to access the database"
-  default="postgres"
+  default     = "postgres"
 }
 
 variable "sql_pass" {
   description = "Password of the host to access the database"
-  default="postgres"
+  default     = "postgres"
 }
 
 ###################ADDONS VARIABLES##################
@@ -306,6 +308,7 @@ variable "chart_version" {
 variable "pega_repo_url" {
   default = "https://scrumteamwhitewalkers.github.io/pega-helm-charts/"
 }
+
 variable "route53_zone" {
   default = "dev.pega.io"
 }

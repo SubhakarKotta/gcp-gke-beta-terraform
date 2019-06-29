@@ -1,6 +1,7 @@
-module "cloudsql" {
+module "db" {
   source               = "github.com/SubhakarKotta/terraform-google-cloudsql-beta-postgres.git"
   region               = "${var.region}"
+  project_id           = "${var.project_id}"
   availability_type    = "${var.availability_type}"
   database_name_prefix = "${var.name}"
   database_version     = "${var.database_version}"
