@@ -95,11 +95,6 @@ output "service_account" {
   value       = "${module.cluster.service_account}"
 }
 
-output "service_account" {
-  description = "The service account to default running nodes as if not overridden in `node_pools`."
-  value       = "${module.cluster.service_account}"
-}
-
 output "master_instance_sql_ipv4" {
   value       = "${module.db.master_instance_sql_ipv4}"
   description = "The IPv4 address assigned for master"
