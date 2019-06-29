@@ -126,17 +126,19 @@ spec:
                 expression { params.action == 'preview' || params.action == 'create'  || params.action == 'destroy' }
              }
              steps {
-                container('jenkins-slave-terraform-kubectl-helm-gcloud'){ 
-                     withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
-                         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-                             dir ("provisioning") { 
-                                 sh 'terraform validate -var  name=${cluster} --var-file=${TFVARS_FILE_NAME}'
+                container('jenkins-slave-terraform-kubectl-helm-gcloud'){
+                     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: params.docker, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                         withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
+                             wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+                                 dir ("provisioning") { 
+                                     sh 'terraform validate -var  name=${cluster} --var-file=${TFVARS_FILE_NAME}'
+                                 }
                              }
                          }
                      }
                  }
-               }
-          }
+             }
+        }
         stage('preview') {
             when {
                 expression { params.action == 'preview' }
