@@ -41,6 +41,7 @@ variable "subnets" {
 variable "secondary_ranges" {
   type        = "map"
   description = "Secondary ranges that will be used in some of the subnets"
+  default = {}
 }
 
 variable "network_project_id" {
@@ -104,10 +105,12 @@ variable "maintenance_start_time" {
 
 variable "ip_range_pods" {
   description = "The _name_ of the secondary subnet ip range to use for pods"
+  default = ""
 }
 
 variable "ip_range_services" {
   description = "The _name_ of the secondary subnet range to use for services"
+  default = ""
 }
 
 variable "remove_default_node_pool" {
