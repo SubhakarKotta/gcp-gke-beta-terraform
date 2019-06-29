@@ -104,3 +104,18 @@ output "master_instance_sql_name" {
   value       = "${module.db.master_instance_sql_name}"
   description = "The database name for master"
 }
+
+output "master_private_ip" {
+  description = "The private IPv4 address of the master instance"
+  value       = "${module.db.master_private_ip}"
+}
+
+output "master_instance" {
+  description = "Self link to the master instance"
+  value       = "${module.db.master_instance}"
+}
+
+output "master_ip_addresses" {
+  description = "All IP addresses of the master instance JSON encoded, see https://www.terraform.io/docs/providers/google/r/sql_database_instance.html#ip_address-0-ip_address"
+  value       = "${module.db.master_ip_addresses}"
+}
