@@ -120,6 +120,7 @@ output "master_ip_addresses" {
   value       = "${module.db.master_ip_addresses}"
 }
 
-output "kubeconfig" {
+/*output "kubeconfig" {
   value = "${data.template_file.kubeconfig.rendered}"
-}
+}*/
+
