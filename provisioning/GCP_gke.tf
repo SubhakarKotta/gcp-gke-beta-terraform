@@ -22,6 +22,14 @@ module "cluster" {
   basic_auth_password        = "${random_id.password.hex}"
 }
 
+resource "random_id" "username" {
+  byte_length = 14
+}
+
+resource "random_id" "password" {
+  byte_length = 16
+}
+
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "primary" {
