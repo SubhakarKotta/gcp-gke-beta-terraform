@@ -31,7 +31,7 @@ data "template_file" "kubeconfig" {
   template = "${file("${path.module}/kubeconfig.tpl")}"
 
   vars = {
-    kubeconfig_name = "kubeconfig_${google_container_cluster.primary.name}"
+    kubeconfig_name = "kubeconfig_${data.google_container_cluster.primary.name}"
     cluster_name    = "${data.google_container_cluster.primary.name}"
     user_name       = "${data.google_container_cluster.primary.master_auth.0.username}"
     user_password   = "${data.google_container_cluster.primary.master_auth.0.password}"
