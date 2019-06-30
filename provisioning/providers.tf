@@ -13,5 +13,5 @@ provider "google-beta" {
 provider "kubernetes" {
   version          = "~> 1.7"
   load_config_file = true
-  config_path      = "${local_file.kubeconfig.filename}"
+  config_path      = "./kubeconfig_subhakar-demo-cloud"
 }
