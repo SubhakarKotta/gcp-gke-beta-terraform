@@ -34,7 +34,7 @@ resource "random_id" "password" {
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "primary" {
-  name   = "${module.cluster.name}"
+  name   = "${module.cluster.id}"
   region = "${var.region}"
 }
 
