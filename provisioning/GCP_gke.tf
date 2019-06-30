@@ -21,3 +21,18 @@ module "cluster" {
 }
 
 data "google_client_config" "default" {}
+
+data "template_file" "kubeconfig" {
+  template = <<EOF
+    set -xe \
+    && gcloud container clusters get-credentials ${module.cluster.cluster_id} --region ${var.region} --project ${var.project_id}
+EOF
+
+  vars {}
+}
+
+resource "local_file" "kubeconfig" {
+  content    = "${data.template_file.kubeconfig.rendered}"
+  filename   = "./kubeconfig_${var.name}"
+  depends_on = ["module.cluster"]
+}

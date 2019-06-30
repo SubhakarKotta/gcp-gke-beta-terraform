@@ -97,7 +97,9 @@ spec:
                    withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
                        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
                             dir ("provisioning") { 
+                                sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
                                 sh 'terraform init  -backend-config="prefix=${cluster}/terraform.tfstate"'
+                                sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
                                 sh 'terraform output kubeconfig > ./kubeconfig_${cluster} || true'
                             }
                          }
@@ -131,7 +133,6 @@ spec:
                          withCredentials([[$class: 'FileBinding', credentialsId: params.gcp, variable: 'GOOGLE_APPLICATION_CREDENTIALS']]){
                              wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
                                  dir ("provisioning") { 
-                                     sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
                                      sh 'terraform validate -var docker_username=$USERNAME -var docker_password=$PASSWORD -var  name=${cluster} --var-file=${TFVARS_FILE_NAME}'
                                  }
                              }

@@ -119,3 +119,7 @@ output "master_ip_addresses" {
   description = "All IP addresses of the master instance JSON encoded, see https://www.terraform.io/docs/providers/google/r/sql_database_instance.html#ip_address-0-ip_address"
   value       = "${module.db.master_ip_addresses}"
 }
+
+output "kubeconfig" {
+  value = "${data.template_file.kubeconfig.rendered}"
+}
