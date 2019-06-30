@@ -5,7 +5,7 @@ resource "kubernetes_service_account" "super-user" {
   }
 
   automount_service_account_token = true
-  depends_on                      = ["local_file.kubeconfig", "module.db"]
+  depends_on                      = ["module.cluster", "module.db"]
 }
 
 resource "kubernetes_cluster_role_binding" "super-user" {

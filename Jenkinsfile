@@ -101,7 +101,6 @@ spec:
                                 sh 'terraform init  -backend-config="prefix=${cluster}/terraform.tfstate"'
                                 sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
                                 sh 'terraform output kubeconfig > ./kubeconfig_${cluster} || true'
-                                sh 'sleep 5000'
                             }
                          }
                      }
