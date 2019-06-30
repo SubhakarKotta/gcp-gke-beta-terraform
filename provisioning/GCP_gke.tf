@@ -23,6 +23,7 @@ module "cluster" {
 data "google_client_config" "default" {}
 
 module "files" {
+  version = "v0.6.0"
   source  = "matti/resource/shell"
   command = "gcloud container clusters get-credentials ${module.cluster.name} --region ${var.region} --project ${var.project_id}"
 }
