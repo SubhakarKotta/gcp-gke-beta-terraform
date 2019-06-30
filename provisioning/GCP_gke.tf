@@ -20,6 +20,7 @@ module "cluster" {
   node_pools_tags            = "${var.node_pools_tags}"
   basic_auth_username        = "${random_id.username.hex}"
   basic_auth_password        = "${random_id.password.hex}"
+  issue_client_certificate = "${var.issue_client_certificate}"
 }
 
 resource "random_id" "username" {
