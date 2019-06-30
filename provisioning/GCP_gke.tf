@@ -18,6 +18,8 @@ module "cluster" {
   node_pools_metadata        = "${var.node_pools_metadata}"
   node_pools_taints          = "${var.node_pools_taints}"
   node_pools_tags            = "${var.node_pools_tags}"
+  basic_auth_username        = "${random_id.username.hex}"
+  basic_auth_password        = "${random_id.password.hex}"
 }
 
 data "google_client_config" "default" {}
