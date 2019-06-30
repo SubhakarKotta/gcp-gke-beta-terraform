@@ -32,13 +32,13 @@ data "template_file" "kubeconfig" {
 
   vars = {
     kubeconfig_name = "kubeconfig_${google_container_cluster.primary.name}"
-    cluster_name    = "${google_container_cluster.primary.name}"
-    user_name       = "${google_container_cluster.primary.master_auth.0.username}"
-    user_password   = "${google_container_cluster.primary.master_auth.0.password}"
-    endpoint        = "${google_container_cluster.primary.endpoint}"
-    cluster_ca      = "${google_container_cluster.primary.master_auth.0.cluster_ca_certificate}"
-    client_cert     = "${google_container_cluster.primary.master_auth.0.client_certificate}"
-    client_cert_key = "${google_container_cluster.primary.master_auth.0.client_key}"
+    cluster_name    = "${data.google_container_cluster.primary.name}"
+    user_name       = "${data.google_container_cluster.primary.master_auth.0.username}"
+    user_password   = "${data.google_container_cluster.primary.master_auth.0.password}"
+    endpoint        = "${data.google_container_cluster.primary.endpoint}"
+    cluster_ca      = "${data.google_container_cluster.primary.master_auth.0.cluster_ca_certificate}"
+    client_cert     = "${data.google_container_cluster.primary.master_auth.0.client_certificate}"
+    client_cert_key = "${data.google_container_cluster.primary.master_auth.0.client_key}"
   }
 
   depends_on = ["module.cluster"]
@@ -46,6 +46,6 @@ data "template_file" "kubeconfig" {
 
 resource "local_file" "kubeconfig" {
   content    = "${data.template_file.kubeconfig.rendered}"
-  filename   = "./kubeconfig_${google_container_cluster.primary.name}"
+  filename   = "./kubeconfig_${data.google_container_cluster.primary.name}"
   depends_on = ["module.cluster"]
 }
