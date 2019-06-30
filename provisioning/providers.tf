@@ -25,6 +25,7 @@ provider "helm" {
   namespace       = "${kubernetes_service_account.tiller.metadata.0.namespace}"
 
   kubernetes {
+    version                = "~> 1.7"
     host                   = "https://${module.cluster.endpoint}"
     token                  = "${data.google_client_config.default.access_token}"
     cluster_ca_certificate = "${base64decode(module.cluster.ca_certificate)}"
