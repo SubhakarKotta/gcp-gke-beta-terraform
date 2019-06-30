@@ -40,12 +40,9 @@ data "template_file" "kubeconfig" {
     client_cert     = "${data.google_container_cluster.primary.master_auth.0.client_certificate}"
     client_cert_key = "${data.google_container_cluster.primary.master_auth.0.client_key}"
   }
-
-  depends_on = ["module.cluster"]
 }
 
 resource "local_file" "kubeconfig" {
-  content    = "${data.template_file.kubeconfig.rendered}"
-  filename   = "./kubeconfig_${data.google_container_cluster.primary.name}"
-  depends_on = ["module.cluster"]
+  content  = "${data.template_file.kubeconfig.rendered}"
+  filename = "./kubeconfig_${data.google_container_cluster.primary.name}"
 }
