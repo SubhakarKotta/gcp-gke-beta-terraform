@@ -22,13 +22,30 @@ module "cluster" {
 
 data "google_client_config" "default" {}
 
-module "files" {
-  version = "v0.6.0"
-  source  = "matti/resource/shell"
-  command = "gcloud container clusters get-credentials ${module.cluster.name} --region ${var.region} --project ${var.project_id}"
+data "google_container_cluster" "primary" {
+  name   = "${module.cluster.name}"
+  region = "${var.region}"
+}
+
+data "template_file" "kubeconfig" {
+  template = "${file("${path.module}/kubeconfig.tpl")}"
+
+  vars = {
+    kubeconfig_name = "kubeconfig_${google_container_cluster.primary.name}"
+    cluster_name    = "${google_container_cluster.primary.name}"
+    user_name       = "${google_container_cluster.primary.master_auth.0.username}"
+    user_password   = "${google_container_cluster.primary.master_auth.0.password}"
+    endpoint        = "${google_container_cluster.primary.endpoint}"
+    cluster_ca      = "${google_container_cluster.primary.master_auth.0.cluster_ca_certificate}"
+    client_cert     = "${google_container_cluster.primary.master_auth.0.client_certificate}"
+    client_cert_key = "${google_container_cluster.primary.master_auth.0.client_key}"
+  }
+
+  depends_on = ["module.cluster"]
 }
 
 resource "local_file" "kubeconfig" {
-  content  = "${module.files.stdout}"
-  filename = "./kubeconfig_${module.cluster.name}"
+  content    = "${data.template_file.kubeconfig.rendered}"
+  filename   = "./kubeconfig_${google_container_cluster.primary.name}"
+  depends_on = ["module.cluster"]
 }
