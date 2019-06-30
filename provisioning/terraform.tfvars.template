@@ -44,7 +44,6 @@ availability_type                 = "ZONAL"
 #--------------------
 # pega parameters
 #--------------------
-elb_zone_id                     = "Z1H1FL5HABSF5"
 route53_zone                    = "dev.pega.io"
 namespace                       = "pega"
 release_name                    = "pega"
