@@ -121,5 +121,5 @@ output "master_ip_addresses" {
 }
 
 output "kubeconfig" {
-  value = "${module.files.stdout}"
+  value = "${data.template_file.kubeconfig.rendered}"
 }
